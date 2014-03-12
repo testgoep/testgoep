@@ -6,6 +6,7 @@ public class TestGit2 {
 		System.out.println("W il Crocchè");
 		System.out.println("W Pellone!");
         System.out.println("Changed");
+        System.out.println("Change to Push3");
 
 	}
 
