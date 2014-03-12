@@ -12,7 +12,7 @@
 
 <br><br><br>
 
-<form action = "/Sender">
+<form action = "">
 <input type="submit" value= "Send a Message">
 </form>
 
