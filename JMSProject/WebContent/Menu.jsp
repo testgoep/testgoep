@@ -12,14 +12,17 @@
 
 <br><br><br>
 
-<form action = "">
+<center>
+<form action = "SenderView.jsp">
 <input type="submit" value= "Send a Message">
 </form>
 
 <br><br><br>
-<form action = "/Receiver">
+
+<form action = "ReceiverView">
 <input type="submit" value= "Receive a Message">
 </form>
+</center>
 
 </body>
 </html>

@@ -8,15 +8,16 @@
 </head>
 <body>
 
-<form action="/Sender">
+<form action="Sender">
 
 <font color = "blue">Insert the queue name: </font>
 <input type = "text" size=40 name = "queueName">
-
+<br><br>
 <textArea name = "message" rows=4 cols="40">
 Insert here the message you want to send
 </textArea>
 
+<br>
 <input type = "submit" value = "SEND">
 
 </form>
