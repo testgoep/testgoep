@@ -1,6 +1,7 @@
 package jms;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Properties;
 
 import javax.jms.JMSException;
@@ -69,6 +70,15 @@ public class Sender extends HttpServlet {
 			message.setText(msg);
 			queueSender.send(message);
 
+			PrintWriter pw = response.getWriter();
+			pw.write("<html> "
+					+ "<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\">"
+					+ "<title>Message</title>"
+					+ "</head>"
+					+ "<body bgcolor = \"yellow\">"
+					+ "<H1> Message sent!!</H1>"
+					+ "</body>"
+					+ "</html>");
 		}
 		catch(JMSException e){
 			e.printStackTrace();

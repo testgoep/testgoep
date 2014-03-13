@@ -30,7 +30,8 @@ import javax.naming.NamingException;
 /**
  * Servlet implementation class Operation
  */
-@WebServlet
+
+@WebServlet("/Receiver")
 public class Receiver extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
@@ -46,12 +47,13 @@ public class Receiver extends HttpServlet
 	private TextMessage message = null;
        
     /**
+     * @throws IOException 
      * @see HttpServlet#HttpServlet()
      */
  
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
-		String queueName=request.getParameter("nomeCoda");
+		String queueName=request.getParameter("queueName");
 		
 		final Properties p = new Properties();
 
@@ -109,11 +111,28 @@ public class Receiver extends HttpServlet
 					this.message = (TextMessage) m;
 
 					//usare message per la JSP 
+					PrintWriter out = response.getWriter();
+				    out.println (
+				      
+				      "<html> \n" +
+				        "<head> \n" +
+				          "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\"> \n" +
+				          "<title> Message Queue  </title> \n" +
+				        "</head> \n" +
+				        "<body> \n" +
+				          "<font size=\"12px\"\">" +
+				            "Messaggio:" + message +
+				          "</font> \n" +
+				        "</body> \n" +
+				      "</html>" 
+				    );  
+					 
+					 
 				}
-				else
-				{
+				
+				
 					
-				}
+				
 			}
 			
 					
