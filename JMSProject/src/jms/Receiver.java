@@ -23,6 +23,7 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NameNotFoundException;
 import javax.naming.NamingException;
 
 
@@ -74,10 +75,10 @@ public class Receiver extends HttpServlet
 				QueueConnectionFactory queueConnectionFactory = (QueueConnectionFactory) jndiContext.lookup(queueConnectionFactoryName); 
 	        
 				//Lookup the JMS Destination
+				
 				Queue queue = (Queue) jndiContext.lookup(queueName);
 				
-	      		if(queue!=null)
-	      		{
+	      	
 	      			
 	      		
 				    queueConnection = queueConnectionFactory.createQueueConnection();
@@ -109,12 +110,7 @@ public class Receiver extends HttpServlet
 								
 						
 					}
-	      		}
-	      		else
-	      		{
-	      			String path = "ReceiverView.jsp?msg=Queue not found!";
-					response.sendRedirect(path);
-	      		}
+	      		
 			}
 			else
 			{
@@ -130,9 +126,10 @@ public class Receiver extends HttpServlet
 		}
 		catch (final NamingException e)
 		{
-			System.out.println("JNDI lookup is failed: " + e.toString());
-			System.exit(1);
+			String path = "ReceiverView.jsp?msg=Queue not found!";
+			response.sendRedirect(path);
 		}
+		
 
 		//Close connection Finally
 		finally

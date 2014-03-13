@@ -69,8 +69,8 @@ public class Sender extends HttpServlet {
 				//Lookup the JMS Destination
 				Queue queue = (Queue) jndiContext.lookup(queueName);
 				
-				if(queue!=null)
-				{
+				
+				
 			
       		
 				    queueConnection = queueConnectionFactory.createQueueConnection();
@@ -93,16 +93,20 @@ public class Sender extends HttpServlet {
 					response.sendRedirect(path);
 					
 				}
-			}
-			else
-			{
-				String path = "SenderView.jsp?msg=Queue not found!";
-				response.sendRedirect(path);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
 			
-		} finally {
+				
+			
+		} catch (Exception e)
+		
+		{
+			String path = "SenderView.jsp?msg=Queue not found!";
+		    response.sendRedirect(path);	
+		} 
+		
+		 
+		
+		
+		finally {
 			if (queueConnection != null) {
 				try {
 					queueConnection.close();
