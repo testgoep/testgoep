@@ -6,9 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body bgcolor = "yellow">
+<body bgcolor = "green">
 
-<center><b><font size=50 color="blue" face="Arial">Welcome!!</font></b></center>
+<center><b><font size=50 color="white" face="Arial">Welcome!!</font></b></center>
 
 <br><br><br>
 
