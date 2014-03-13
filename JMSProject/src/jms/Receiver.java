@@ -53,6 +53,7 @@ public class Receiver extends HttpServlet
  
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
+		/**
 		String queueName=request.getParameter("queueName");
 		
 		final Properties p = new Properties();
@@ -109,7 +110,12 @@ public class Receiver extends HttpServlet
 				{
 
 					this.message = (TextMessage) m;
-
+					
+					String path = "/ReceiverView.jsp?msg=\"Ciao come va\"" ;
+					response.sendRedirect(path);
+					
+					
+					
 					//usare message per la JSP 
 					PrintWriter out = response.getWriter();
 				    out.println (
@@ -155,7 +161,11 @@ public class Receiver extends HttpServlet
 					System.out.println(e.toString());
 				}
 			}
-		}
+		}*/
+		
+		String path = "/ReceiverView.jsp?msg=Ciao come va" ;
+		response.sendRedirect(path);
+		
 	}
     
 }
