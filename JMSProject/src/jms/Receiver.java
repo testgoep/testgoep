@@ -30,7 +30,7 @@ import javax.naming.NamingException;
 /**
  * Servlet implementation class Operation
  */
-@WebServlet("/Receiver")
+@WebServlet
 public class Receiver extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
