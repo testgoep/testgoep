@@ -68,21 +68,31 @@ public class Sender extends HttpServlet {
         
 				//Lookup the JMS Destination
 				Queue queue = (Queue) jndiContext.lookup(queueName);
+				
+				if(queue!=null)
+				{
 			
       		
-			    queueConnection = queueConnectionFactory.createQueueConnection();
-	
-				//Create session from connection.
-				QueueSession queueSession = queueConnection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
-				QueueSender queueSender = queueSession.createSender(queue);
-	
-				message = queueSession.createTextMessage();
-	
-				message.setText(msg);
-				queueSender.send(message);
-	
-				String path = "SenderView.jsp?msg=Message Sent!!";
-				response.sendRedirect(path);
+				    queueConnection = queueConnectionFactory.createQueueConnection();
+		
+					//Create session from connection.
+					QueueSession queueSession = queueConnection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+					QueueSender queueSender = queueSession.createSender(queue);
+		
+					message = queueSession.createTextMessage();
+		
+					message.setText(msg);
+					queueSender.send(message);
+		
+					String path = "SenderView.jsp?msg=Message Sent!!";
+					response.sendRedirect(path);
+				}
+				else
+				{
+					String path = "SenderView.jsp?msg=Queue not found!";
+					response.sendRedirect(path);
+					
+				}
 			}
 			else
 			{

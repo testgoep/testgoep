@@ -76,36 +76,45 @@ public class Receiver extends HttpServlet
 				//Lookup the JMS Destination
 				Queue queue = (Queue) jndiContext.lookup(queueName);
 				
+	      		if(queue!=null)
+	      		{
+	      			
 	      		
-			    queueConnection = queueConnectionFactory.createQueueConnection();
-	
-				//Create session from connection.
-				QueueSession queueSession = queueConnection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
-	
-				//Create receiver.
-				QueueReceiver queueReceiver = queueSession.createReceiver(queue);
-	
-				//Start queue connection
-				queueConnection.start();
-				
-				final Message m = queueReceiver.receive(1);
-	
-				//if there is some message on queue
-				if (m != null)
-				{
-	
-					if (m instanceof TextMessage)
-					{
-	
-					 TextMessage message = (TextMessage) m;
-						
-						String path = "ReceiverView.jsp?msg=Message Received:\n\n " + message.getText()  ;
-						response.sendRedirect(path);
-						 
-					}
-							
+				    queueConnection = queueConnectionFactory.createQueueConnection();
+		
+					//Create session from connection.
+					QueueSession queueSession = queueConnection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+		
+					//Create receiver.
+					QueueReceiver queueReceiver = queueSession.createReceiver(queue);
+		
+					//Start queue connection
+					queueConnection.start();
 					
-				}
+					final Message m = queueReceiver.receive(1);
+		
+					//if there is some message on queue
+					if (m != null)
+					{
+		
+						if (m instanceof TextMessage)
+						{
+		
+						 TextMessage message = (TextMessage) m;
+							
+							String path = "ReceiverView.jsp?msg=Message Received:\n\n " + message.getText()  ;
+							response.sendRedirect(path);
+							 
+						}
+								
+						
+					}
+	      		}
+	      		else
+	      		{
+	      			String path = "ReceiverView.jsp?msg=Queue not found!";
+					response.sendRedirect(path);
+	      		}
 			}
 			else
 			{
