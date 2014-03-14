@@ -110,6 +110,13 @@ public class Receiver extends HttpServlet
 								
 						
 					}
+					else
+					{
+
+						String path = "ReceiverView.jsp?msg=Queue Empty!\n\n ";
+						response.sendRedirect(path);
+						
+					}
 	      		
 			}
 			else
