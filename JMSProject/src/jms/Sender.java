@@ -3,7 +3,7 @@ package jms;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Properties;
-
+import java.io.InputStream;
 import javax.jms.JMSException;
 import javax.jms.Queue;
 import javax.jms.QueueConnection;
@@ -36,21 +36,25 @@ public class Sender extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		
 		QueueConnection queueConnection=null;
+		
 		String msg = "";
+		
 		TextMessage message = null;
 		
-
 		String queueName = request.getParameter("queueName");
-		
-		
-			
-		
 		
 		msg = request.getParameter("message");
 
 		System.out.println("SEND MASSAGE: " + msg);
 
 		final Properties p = new Properties();
+		
+		InputStream inputStream = this.getClass().getResourceAsStream("file.properties");    
+		Properties properties = new Properties();    
+		properties.load(inputStream);    
+		String UserName = properties.getProperty("username");    
+		String Password = properties.getProperty("password");
+		
 		p.put(Context.INITIAL_CONTEXT_FACTORY,"org.jboss.naming.remote.client.InitialContextFactory");
 		p.put(Context.PROVIDER_URL, "remote://localhost:4447");
 		p.put(Context.SECURITY_PRINCIPAL, "fulvio");
