@@ -6,20 +6,28 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body bgcolor = "yellow">
 
-<form action="/Receiver">
+<body bgcolor = "green">
+
+<a href="Menu.jsp"><font color="white">
+Return to "Menu"</font>
+</a>
+<br><br>
+
+<form action="Receiver">
+
 <center>
 <br>
-<font color = "blue">Insert the queue name: </font>
+<font color = "white">Insert the queue name: </font>
 <input type = "text" size=40 name = "queueName">
 
 <br><br>
 <input type = "submit" value = "RECEIVE">
 </center>
 
+</form>
 
-<font size= 20 color = "red"> 
+<font size= 20 color = "white"> 
 
 	<%
 		if(request.getParameter("msg")!=null)
@@ -29,8 +37,6 @@
 
 </font>
 
-
-</form>
 
 
 </body>

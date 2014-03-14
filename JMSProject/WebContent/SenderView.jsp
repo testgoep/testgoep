@@ -6,14 +6,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body bgcolor="yellow">
+<body bgcolor="green">
+
+<a href="Menu.jsp"><font color="white">
+Return to "Menu"</font>
+</a>
+<br>
+
+<a href="ReceiverView.jsp"><font color="white">
+Go to "Receiver"</font>
+</a>
+<br><br>
 
 <form action="/Sender">
 
 <center>
 
 <br>
-<font color = "blue">Insert the queue name: </font>
+<font color = "white">Insert the queue name: </font>
 <input type = "text" size=40 name = "queueName">
 
 <br><br>
@@ -26,19 +36,20 @@ Insert here the message you want to send
 
 <input type = "submit" value = "SEND">
 
-<font color = "Red">
-<%
-
-if(request.getParameter("msg") != null)
-		out.print(request.getParameter("msg"));
-
-
-%>
-</font>
-
 </center>
 
 </form>
+<br>
+<font size= 20 color = "white"> 
+
+	<%
+		if(request.getParameter("msg")!=null)
+			
+			out.println(request.getParameter("msg")); 
+	%>
+
+</font>
+
 
 </body>
 </html>

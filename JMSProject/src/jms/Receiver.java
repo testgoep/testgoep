@@ -23,6 +23,7 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NameNotFoundException;
 import javax.naming.NamingException;
 
 
@@ -34,17 +35,11 @@ import javax.naming.NamingException;
 @WebServlet("/Receiver")
 public class Receiver extends HttpServlet 
 {
-	private static final long serialVersionUID = 1L;
-	private final String queueConnectionFactoryName = "jms/RemoteConnectionFactory";
-	private Context jndiContext = null;
 	
-	private String queueName;
-	private QueueConnectionFactory queueConnectionFactory = null;
-	private QueueConnection queueConnection = null;
-	private QueueSession queueSession = null;
-	private Queue queue = null;
-	private QueueReceiver queueReceiver = null;
-	private TextMessage message = null;
+	
+	private final String queueConnectionFactoryName = "jms/RemoteConnectionFactory";
+
+
        
     /**
      * @throws IOException 
@@ -53,92 +48,80 @@ public class Receiver extends HttpServlet
  
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
-		/**
+		//Create connection
+		 QueueConnection queueConnection=null;
+		 
 		String queueName=request.getParameter("queueName");
+		
+		
+		
 		
 		final Properties p = new Properties();
 
-		p.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
-
-		p.put(Context.PROVIDER_URL, "remote://localhost:4447");
-
+		p.put(Context.INITIAL_CONTEXT_FACTORY,"org.jboss.naming.remote.client.InitialContextFactory");
+		p.put(Context.PROVIDER_URL,"remote://localhost:4447");
 		p.put(Context.SECURITY_PRINCIPAL, "fulvio");
-
 		p.put(Context.SECURITY_CREDENTIALS, "cicerano");
 
-		try
-		{
-			//Set the Context Object
-			this.jndiContext = new InitialContext(p);
-
-			//Lookup the Queue Connection Factory.
-			this.queueConnectionFactory = (QueueConnectionFactory) jndiContext.lookup(queueConnectionFactoryName); 
         
-			//Lookup the JMS Destination
-			//this.queue = (Queue) jndiContext.lookup(queueName);
-        }catch (final NamingException e)
-		{
-			System.out.println("JNDI lookup is failed: " + e.toString());
-			System.exit(1);
-		}
-		catch (final Exception e)
-		{
-			e.printStackTrace();
-		}
-		
 		try
 		{
-			//Create connection
-			queueConnection = queueConnectionFactory.createQueueConnection();
-
-			//Create session from connection.
-			queueSession = queueConnection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
-
-			//Create receiver.
-			queueReceiver = queueSession.createReceiver(queue);
-
-			//Start queue connection
-			queueConnection.start();
-			
-			final Message m = queueReceiver.receive(1);
-
-			//if there is some message on queue
-			if (m != null)
+			if(queueName!=null && !(queueName.equals("")))
 			{
-
-				if (m instanceof TextMessage)
+				//Set the Context Object
+				Context jndiContext = new InitialContext(p);
+	
+				//Lookup the Queue Connection Factory.
+				QueueConnectionFactory queueConnectionFactory = (QueueConnectionFactory) jndiContext.lookup(queueConnectionFactoryName); 
+	        
+				//Lookup the JMS Destination
+				
+				Queue queue = (Queue) jndiContext.lookup(queueName);
+				
+      		
+			    queueConnection = queueConnectionFactory.createQueueConnection();
+	
+				//Create session from connection.
+				QueueSession queueSession = queueConnection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+	
+				//Create receiver.
+				QueueReceiver queueReceiver = queueSession.createReceiver(queue);
+	
+				//Start queue connection
+				queueConnection.start();
+				
+				final Message m = queueReceiver.receive(1);
+	
+				//if there is some message on queue
+				if (m != null)
+				{
+	
+					if (m instanceof TextMessage)
+					{
+	
+					 TextMessage message = (TextMessage) m;
+						
+						String path = "ReceiverView.jsp?msg=Message Received:\n\n " + message.getText()  ;
+						response.sendRedirect(path);
+						 
+					}
+							
+					
+				}
+				else
 				{
 
-					this.message = (TextMessage) m;
-					
-					String path = "/ReceiverView.jsp?msg=\"Ciao come va\"" ;
+					String path = "ReceiverView.jsp?msg=Queue Empty!\n\n ";
 					response.sendRedirect(path);
 					
-					
-					
-					//usare message per la JSP 
-					PrintWriter out = response.getWriter();
-				    out.println (
-				      
-				      "<html> \n" +
-				        "<head> \n" +
-				          "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\"> \n" +
-				          "<title> Message Queue  </title> \n" +
-				        "</head> \n" +
-				        "<body> \n" +
-				          "<font size=\"12px\"\">" +
-				            "Messaggio:" + message +
-				          "</font> \n" +
-				        "</body> \n" +
-				      "</html>" 
-				    );  
-					 
-					 
 				}
-				
-				
-					
-				
+	      		
+			}
+			else
+			{
+				String path = "ReceiverView.jsp?msg=Queue not found!";
+				response.sendRedirect(path);
+				 
 			}
 			
 					
@@ -146,6 +129,12 @@ public class Receiver extends HttpServlet
 		{
 			System.out.println("Exception occurred: " + e.toString());
 		}
+		catch (final NamingException e)
+		{
+			String path = "ReceiverView.jsp?msg=Queue not found!";
+			response.sendRedirect(path);
+		}
+		
 
 		//Close connection Finally
 		finally
@@ -161,11 +150,18 @@ public class Receiver extends HttpServlet
 					System.out.println(e.toString());
 				}
 			}
-		}*/
+
+		}
 		
-		String path = "ReceiverView.jsp?msg=Ciao come va" ;
-		response.sendRedirect(path);
+    }
+	
 		
-	}
-    
+		
+
 }
+
+
+
+    
+
+
