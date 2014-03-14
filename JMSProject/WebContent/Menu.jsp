@@ -8,6 +8,23 @@
 </head>
 <body bgcolor = "green">
 
+<form action="Language" id = "languageForm">
+<select name = "language" onchange="traduci()">
+<option>it_IT</option>
+<option>en_GB</option>
+
+</select>
+
+<script type="text/javascript">
+function traduci(){
+	document.getElementById("languageForm").submit();
+}
+
+</script>
+
+</form>
+
+
 <center><b><font size=50 color="white" face="Arial">Welcome!!</font></b></center>
 
 <br><br><br>
