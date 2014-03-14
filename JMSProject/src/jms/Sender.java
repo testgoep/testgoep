@@ -52,9 +52,12 @@ public class Sender extends HttpServlet {
 		final Properties p = new Properties();
 		p.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
 		p.put(Context.PROVIDER_URL, "remote://localhost:4447");
+
 		p.put(Context.SECURITY_PRINCIPAL, "rosanna");
 		p.put(Context.SECURITY_CREDENTIALS, "napolitano");
 		
+
+
 		try
 		{
 			ctx = new InitialContext(p);
