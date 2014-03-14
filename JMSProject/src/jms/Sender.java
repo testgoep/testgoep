@@ -26,22 +26,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("Sender")
 public class Sender extends HttpServlet {
-	
-
-<<<<<<< HEAD
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
-		String queueName = request.getParameter("queueName");
-		msg = request.getParameter("message"); 
-=======
-	public Sender() {
-		// TODO Auto-generated constructor stub
-	}
 
 	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
->>>>>>> branch 'master' of https://github.com/testgoep/testgoep.git
+			HttpServletResponse response) throws ServletException, IOException{
 		
 		QueueConnection queueConnection=null;
 		String msg = "";
@@ -49,9 +36,6 @@ public class Sender extends HttpServlet {
 		
 
 		String queueName = request.getParameter("queueName");
-		
-		
-			
 		
 		
 		msg = request.getParameter("message");
@@ -66,66 +50,18 @@ public class Sender extends HttpServlet {
 
 		try
 		{
-<<<<<<< HEAD
-			ctx = new InitialContext(p);
-
-			queueConnectionFactory = (QueueConnectionFactory) ctx.lookup("jms/RemoteConnectionFactory");
-			queue = (Queue) ctx.lookup(queueName);
-
-			queueConnection = queueConnectionFactory.createQueueConnection();
-			queueSession = queueConnection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
-			queueSender = queueSession.createSender(queue);
-
-			message = queueSession.createTextMessage();
-
-			message.setText(msg);
-			queueSender.send(message);
-
-			
-		}
-		catch(JMSException e){
-			e.printStackTrace();
-		}
-		catch (final NamingException e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			try
-=======
-			if(queueName!=null && !(queueName.equals("")))
->>>>>>> branch 'master' of https://github.com/testgoep/testgoep.git
-			{
-<<<<<<< HEAD
-				queueConnection.close();
-			}
-			catch (final JMSException e)
-			{
-				e.printStackTrace();
-			}
-		}*/
-=======
+	
 				//Set the Context Object
-				Context jndiContext = new InitialContext(p);
->>>>>>> branch 'master' of https://github.com/testgoep/testgoep.git
+					Context jndiContext = new InitialContext(p);
+	
+					//Lookup the Queue Connection Factory.
+					QueueConnectionFactory queueConnectionFactory = (QueueConnectionFactory) jndiContext.lookup("jms/RemoteConnectionFactory"); 
+	        
+					//Lookup the JMS Destination
+					Queue queue = (Queue) jndiContext.lookup(queueName);
+					
+					queueConnection = queueConnectionFactory.createQueueConnection();
 
-<<<<<<< HEAD
-		String path = "SenderView.jsp?msg=Ciao come va" ;
-		response.sendRedirect(path);
-=======
-				//Lookup the Queue Connection Factory.
-				QueueConnectionFactory queueConnectionFactory = (QueueConnectionFactory) jndiContext.lookup("jms/RemoteConnectionFactory"); 
-        
-				//Lookup the JMS Destination
-				Queue queue = (Queue) jndiContext.lookup(queueName);
-				
-				
-				
-			
-      		
-				    queueConnection = queueConnectionFactory.createQueueConnection();
->>>>>>> branch 'master' of https://github.com/testgoep/testgoep.git
 		
 					//Create session from connection.
 					QueueSession queueSession = queueConnection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
@@ -138,13 +74,7 @@ public class Sender extends HttpServlet {
 		
 					String path = "SenderView.jsp?msg=Message Sent!!";
 					response.sendRedirect(path);
-				}
-				else
-				{
-					String path = "SenderView.jsp?msg=Queue not found!";
-					response.sendRedirect(path);
-					
-				}
+				
 			
 				
 			
