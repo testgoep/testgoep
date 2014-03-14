@@ -163,7 +163,7 @@ public class Receiver extends HttpServlet
 			}
 		}*/
 		
-		String path = "/ReceiverView.jsp?msg=Ciao come va" ;
+		String path = "ReceiverView.jsp?msg=Ciao come va" ;
 		response.sendRedirect(path);
 		
 	}

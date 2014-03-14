@@ -8,8 +8,10 @@
 </head>
 <body bgcolor="yellow">
 
-<form action="Sender">
+<form action="/Sender">
+
 <center>
+
 <br>
 <font color = "blue">Insert the queue name: </font>
 <input type = "text" size=40 name = "queueName">
@@ -23,9 +25,20 @@ Insert here the message you want to send
 <br><br>
 
 <input type = "submit" value = "SEND">
-</center>
-</form>
 
+<font color = "Red">
+<%
+
+if(request.getParameter("msg") != null)
+		out.print(request.getParameter("msg"));
+
+
+%>
+</font>
+
+</center>
+
+</form>
 
 </body>
 </html>

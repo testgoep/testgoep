@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Sender
  */
-@WebServlet("/Sender")
+@WebServlet("Sender")
 public class Sender extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -43,6 +43,7 @@ public class Sender extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/*
 		String queueName = request.getParameter("queueName");
 		msg = request.getParameter("message"); 
 		
@@ -70,15 +71,7 @@ public class Sender extends HttpServlet {
 			message.setText(msg);
 			queueSender.send(message);
 
-			PrintWriter pw = response.getWriter();
-			pw.write("<html> "
-					+ "<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\">"
-					+ "<title>Message</title>"
-					+ "</head>"
-					+ "<body bgcolor = \"yellow\">"
-					+ "<H1> Message sent!!</H1>"
-					+ "</body>"
-					+ "</html>");
+			
 		}
 		catch(JMSException e){
 			e.printStackTrace();
@@ -97,8 +90,10 @@ public class Sender extends HttpServlet {
 			{
 				e.printStackTrace();
 			}
-		}
+		}*/
 
+		String path = "SenderView.jsp?msg=Ciao come va" ;
+		response.sendRedirect(path);
 		
 	}
 
