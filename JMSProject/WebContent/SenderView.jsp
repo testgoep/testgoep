@@ -19,10 +19,8 @@ Go to "Receiver"</font>
 </a>
 <br><br>
 
-<form action="/Sender">
-
+<form action="Sender">
 <center>
-
 <br>
 <font color = "white">Insert the queue name: </font>
 <input type = "text" size=40 name = "queueName">
@@ -36,9 +34,7 @@ Insert here the message you want to send
 <br><br>
 
 <input type = "submit" value = "SEND">
-
 </center>
-
 </form>
 <br>
 <font size= 20 color = "white"> 
@@ -50,6 +46,7 @@ Insert here the message you want to send
 	%>
 
 </font>
+
 
 
 </body>

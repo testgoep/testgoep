@@ -3,13 +3,14 @@ package jms;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Properties;
-
+import java.io.InputStream;
 import javax.jms.JMSException;
 import javax.jms.Queue;
 import javax.jms.QueueConnection;
 import javax.jms.QueueConnectionFactory;
 import javax.jms.QueueSender;
 import javax.jms.QueueSession;
+import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -25,83 +26,104 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/Sender")
 public class Sender extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-	Context ctx = null;
-	QueueConnectionFactory queueConnectionFactory = null;
-	Queue queue = null;
-	QueueConnection queueConnection = null;
-	QueueSession queueSession = null;
-	QueueSender queueSender = null;
-
-	String msg = "";
-	TextMessage message = null;
 	
-    public Sender() {
-        // TODO Auto-generated constructor stub
-    }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public Sender() {
+		// TODO Auto-generated constructor stub
+	}
+
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		
+		QueueConnection queueConnection=null;
+		
+		String msg = "";
+		
+		TextMessage message = null;
 		
 		String queueName = request.getParameter("queueName");
-		msg = request.getParameter("message"); 
 		
+		msg = request.getParameter("message");
+
 		System.out.println("SEND MASSAGE: " + msg);
 
 		final Properties p = new Properties();
-		p.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
-		p.put(Context.PROVIDER_URL, "remote://localhost:4447");
-
-		p.put(Context.SECURITY_PRINCIPAL, "rosanna");
-		p.put(Context.SECURITY_CREDENTIALS, "napolitano");
 		
-
+		InputStream inputStream = this.getClass().getResourceAsStream("file.properties");    
+		Properties properties = new Properties();    
+		properties.load(inputStream);    
+		String UserName = properties.getProperty("username");    
+		String Password = properties.getProperty("password");
+		
+		p.put(Context.INITIAL_CONTEXT_FACTORY,"org.jboss.naming.remote.client.InitialContextFactory");
+		p.put(Context.PROVIDER_URL, "remote://localhost:4447");
+		p.put(Context.SECURITY_PRINCIPAL, UserName);
+		p.put(Context.SECURITY_CREDENTIALS, Password);
 
 		try
 		{
-			ctx = new InitialContext(p);
+			if(queueName!=null && !(queueName.equals("")))
+			{
+				//Set the Context Object
+				Context jndiContext = new InitialContext(p);
 
-			queueConnectionFactory = (QueueConnectionFactory) ctx.lookup("jms/RemoteConnectionFactory");
-			queue = (Queue) ctx.lookup(queueName);
-
-			queueConnection = queueConnectionFactory.createQueueConnection();
-			queueSession = queueConnection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
-			queueSender = queueSession.createSender(queue);
-
-			message = queueSession.createTextMessage();
-
-			message.setText(msg);
-			queueSender.send(message);
-
+				//Lookup the Queue Connection Factory.
+				QueueConnectionFactory queueConnectionFactory = (QueueConnectionFactory) jndiContext.lookup("jms/RemoteConnectionFactory"); 
+        
+				//Lookup the JMS Destination
+				Queue queue = (Queue) jndiContext.lookup(queueName);
+				
+				
+				
 			
-		}
-		catch(JMSException e){
-			e.printStackTrace();
-		}
-		catch (final NamingException e)
+      		
+				    queueConnection = queueConnectionFactory.createQueueConnection();
+		
+					//Create session from connection.
+					QueueSession queueSession = queueConnection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+					QueueSender queueSender = queueSession.createSender(queue);
+		
+					message = queueSession.createTextMessage();
+		
+					message.setText(msg);
+					queueSender.send(message);
+		
+					String path = "SenderView.jsp?msg=Message Sent!!";
+					response.sendRedirect(path);
+				}
+				else
+				{
+					String path = "SenderView.jsp?msg=Queue not found!";
+					response.sendRedirect(path);
+					
+				}
+			
+				
+			
+		} catch (Exception e)
+		
 		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			try
-			{
-				queueConnection.close();
-			}
-			catch (final JMSException e)
-			{
-				e.printStackTrace();
+			String path = "SenderView.jsp?msg=Queue not found!";
+		    response.sendRedirect(path);	
+		} 
+		
+		 
+		
+		
+		finally {
+			if (queueConnection != null) {
+				try {
+					queueConnection.close();
+				} catch (final JMSException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 
-		String path = "/ReceiverView.jsp?msg=Ciao come va" ;
-		response.sendRedirect(path);
-		
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 
