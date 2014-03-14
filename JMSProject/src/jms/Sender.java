@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Sender
  */
-@WebServlet("Sender")
+@WebServlet("/Sender")
 public class Sender extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
