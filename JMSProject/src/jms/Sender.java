@@ -47,7 +47,7 @@ public class Sender extends HttpServlet {
 		
 		msg = request.getParameter("message");
 
-		System.out.println("SEND MASSAGE: " + msg);
+		//System.out.println("SEND MASSAGE: " + msg);
 
 		final Properties p = new Properties();
 		
@@ -62,8 +62,8 @@ public class Sender extends HttpServlet {
         String usr=properties.getProperty("username");
         String pwd=properties.getProperty("password");
         
-        System.out.println(usr);
-        System.out.println(pwd);
+      //System.out.println(usr);
+      //System.out.println(pwd);
 			
 		p.put(Context.INITIAL_CONTEXT_FACTORY,"org.jboss.naming.remote.client.InitialContextFactory");
 		p.put(Context.PROVIDER_URL, "remote://localhost:4447");
