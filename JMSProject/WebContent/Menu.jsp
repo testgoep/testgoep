@@ -9,9 +9,15 @@
 <body bgcolor = "green">
 
 <form action="Language" id = "languageForm">
+
 <select name = "language" onchange="traduci()">
-<option>it_IT</option>
-<option>en_GB</option>
+
+   
+    <option selected="selected">Select Language</option>
+    <option>es_ES</option>
+    <option>it_IT</option>
+	<option>fr_FR</option>
+	<option>en_GB</option>
 
 </select>
 
@@ -24,19 +30,38 @@ function traduci(){
 
 </form>
 
-
-<center><b><font size=50 color="white" face="Arial">Welcome!!</font></b></center>
-
+<% 
+if(session.getAttribute("benvenuto")==null)
+		{
+			out.println("<center><b><font size=50 color=\"white\" face=\"Arial\">  Welcome!! </font></b></center>");
+		}
+else
+	out.println("<center><b><font size=50 color=\"white\" face=\"Arial\">" + session.getAttribute("benvenuto") + "</font></b></center>"); 
+%>
 <br><br><br>
-
+ 
+ 
 <Center>
 <form action = "SenderView.jsp">
-<input type="submit" value= "Send a Message">
+<input type="submit" <% if(session.getAttribute("send")==null)
+							{       
+	                    		 out.println("value=\" Send Message\"");
+							}
+						else
+							     out.println("value=\"" + session.getAttribute("sendM") + "\"");
+	                 %>>
 </form>
 
 <br><br><br>
 <form action = "ReceiverView.jsp">
-<input type="submit" value= "Receive a Message">
+<input type="submit" <% 
+						if(session.getAttribute("receive")==null)
+							{       
+	 							 out.println("value=\" Receive Message\"");
+							}
+						else
+     							 out.println("value=\"" + session.getAttribute("receiveM") + "\"");
+	                 %>>
 </form>
 </Center>
 </body>

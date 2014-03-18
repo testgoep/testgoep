@@ -1,6 +1,7 @@
 package jms;
 
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -52,21 +53,29 @@ public class Receiver extends HttpServlet
 		//Create connection
 		 QueueConnection queueConnection=null;
 		 
-		String queueName=request.getParameter("queueName");
-
+		 String queueName=request.getParameter("queueName");
+		
 		
 		final Properties p = new Properties();
 		
-		InputStream inputStream = this.getClass().getResourceAsStream("file.properties");    
+		/*InputStream inputStream = this.getClass().getResourceAsStream("user.properties");    
 		Properties properties = new Properties();    
 		properties.load(inputStream);    
 		String UserName = properties.getProperty("username");    
-		String Password = properties.getProperty("password");
+		String Password = properties.getProperty("password");*/
 		
+		FileInputStream fis = new FileInputStream("C:/dev/training/testgoep/JMSProject/user.properties");
+		Properties properties = new Properties();
+		// load from input stream
+        properties.load(fis);
+        String usr=properties.getProperty("username");
+        String pwd=properties.getProperty("password");
+
 		p.put(Context.INITIAL_CONTEXT_FACTORY,"org.jboss.naming.remote.client.InitialContextFactory");
-		p.put(Context.PROVIDER_URL, "remote://localhost:4447");
-		p.put(Context.SECURITY_PRINCIPAL, UserName);
-		p.put(Context.SECURITY_CREDENTIALS, Password);
+		p.put(Context.PROVIDER_URL,"remote://localhost:4447");
+		p.put(Context.SECURITY_PRINCIPAL, usr);
+		p.put(Context.SECURITY_CREDENTIALS, pwd);
+
         
 		try
 		{
@@ -107,7 +116,7 @@ public class Receiver extends HttpServlet
 		
 						 TextMessage message = (TextMessage) m;
 							
-							String path = "ReceiverView.jsp?msg=Message Received:\n\n " + message.getText()  ;
+							String path = "ReceiverView.jsp?msg=Message Received: " + message.getText() ;
 							response.sendRedirect(path);
 							 
 						}
@@ -117,7 +126,7 @@ public class Receiver extends HttpServlet
 					else
 					{
 
-						String path = "ReceiverView.jsp?msg=Queue Empty!\n\n ";
+						String path = "ReceiverView.jsp?msg=QueueIsEmpty";
 						response.sendRedirect(path);
 						
 					}
@@ -125,7 +134,7 @@ public class Receiver extends HttpServlet
 			}
 			else
 			{
-				String path = "ReceiverView.jsp?msg=Queue not found!";
+				String path = "ReceiverView.jsp?msg=QueueNotFound";
 				response.sendRedirect(path);
 				 
 			}
@@ -137,7 +146,7 @@ public class Receiver extends HttpServlet
 		}
 		catch (final NamingException e)
 		{
-			String path = "ReceiverView.jsp?msg=Queue not found!";
+			String path = "ReceiverView.jsp?msg=QueueNotFound";
 			response.sendRedirect(path);
 		}
 		

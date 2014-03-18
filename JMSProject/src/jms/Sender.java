@@ -1,9 +1,11 @@
 package jms;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Properties;
 import java.io.InputStream;
+
 import javax.jms.JMSException;
 import javax.jms.Queue;
 import javax.jms.QueueConnection;
@@ -49,17 +51,25 @@ public class Sender extends HttpServlet {
 
 		final Properties p = new Properties();
 		
-		InputStream inputStream = this.getClass().getResourceAsStream("file.properties");    
-		Properties properties = new Properties();    
-		properties.load(inputStream);    
-		String UserName = properties.getProperty("username");    
-		String Password = properties.getProperty("password");
+		InputStream fis = this.getClass().getResourceAsStream("/user.properties");
 		
+		Properties properties = new Properties();
+		
+		
+		// load from input stream
+        properties.load(fis);
+        
+        String usr=properties.getProperty("username");
+        String pwd=properties.getProperty("password");
+        
+        System.out.println(usr);
+        System.out.println(pwd);
+			
 		p.put(Context.INITIAL_CONTEXT_FACTORY,"org.jboss.naming.remote.client.InitialContextFactory");
 		p.put(Context.PROVIDER_URL, "remote://localhost:4447");
-		p.put(Context.SECURITY_PRINCIPAL, UserName);
-		p.put(Context.SECURITY_CREDENTIALS, Password);
-
+		p.put(Context.SECURITY_PRINCIPAL, usr);
+		p.put(Context.SECURITY_CREDENTIALS, pwd);
+		
 		try
 		{
 			if(queueName!=null && !(queueName.equals("")))
@@ -73,10 +83,7 @@ public class Sender extends HttpServlet {
 				//Lookup the JMS Destination
 				Queue queue = (Queue) jndiContext.lookup(queueName);
 				
-				
-				
-			
-      		
+
 				    queueConnection = queueConnectionFactory.createQueueConnection();
 		
 					//Create session from connection.
@@ -88,28 +95,25 @@ public class Sender extends HttpServlet {
 					message.setText(msg);
 					queueSender.send(message);
 		
-					String path = "SenderView.jsp?msg=Message Sent!!";
+					String path = "SenderView.jsp?msg=MessageSent";
 					response.sendRedirect(path);
 				}
 				else
 				{
-					String path = "SenderView.jsp?msg=Queue not found!";
+					String path = "SenderView.jsp?msg=QueueNotFound";
 					response.sendRedirect(path);
 					
 				}
 			
-				
-			
+							
 		} catch (Exception e)
 		
 		{
-			String path = "SenderView.jsp?msg=Queue not found!";
+			String path = "SenderView.jsp?msg=QueueNotFound";
 		    response.sendRedirect(path);	
 		} 
 		
-		 
-		
-		
+		 	
 		finally {
 			if (queueConnection != null) {
 				try {
