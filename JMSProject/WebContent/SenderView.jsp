@@ -10,7 +10,7 @@
 
 <body bgcolor="green">
 
-<a href="Menu.jsp"><font color="white">
+<a href="index.jsp"><font color="white">
          <% 
 			if(session.getAttribute("menu")==null)
 			{

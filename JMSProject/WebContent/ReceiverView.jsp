@@ -9,7 +9,7 @@
 
 <body bgcolor = "green">
 
-<a href="Menu.jsp"><font color="white">
+<a href="index.jsp"><font color="white">
 Return to "Menu"</font>
 </a>
 <br><br>

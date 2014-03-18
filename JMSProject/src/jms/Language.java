@@ -91,7 +91,7 @@ public class Language extends HttpServlet {
         
         
         
-		response.sendRedirect("Menu.jsp");
+		response.sendRedirect("index.jsp");
        
        
 	}
