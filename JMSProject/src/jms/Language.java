@@ -24,7 +24,7 @@ public class Language extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String combo = request.getParameter("language");
-		String language = combo.substring(0,2);
+		String languageC = combo.substring(0,2);
 		String country = combo.substring(3);
 		HttpSession session = request.getSession(true);
 		
@@ -33,7 +33,7 @@ public class Language extends HttpServlet {
 	
         ResourceBundle messages;
         
-        currentLocale = new Locale(language, country);
+        currentLocale = new Locale(languageC, country);
         
         
         messages = ResourceBundle.getBundle("MessagesBundle", currentLocale);
@@ -89,6 +89,8 @@ public class Language extends HttpServlet {
         String read= messages.getString("read");
         session.setAttribute("read", read);
         
+        String language= messages.getString("language");
+        session.setAttribute("language", language);
         
         
 		response.sendRedirect("index.jsp");
