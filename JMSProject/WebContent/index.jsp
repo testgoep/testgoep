@@ -28,12 +28,47 @@
 							     			 			out.println(session.getAttribute("language"));
 	                 				 			 %></option>
 	                 				 			 
-   			    	<option>es_ES</option>
-    				<option>it_IT</option>
-					<option>fr_FR</option>
-					<option>en_GB</option>
+	                 				 			 
+   			    	<option><% if(session.getAttribute("es")==null) 
+   			    				{
+   			    					out.println("Spanish");
+   			    				}
+   			    				else
+ 			 			            out.println(session.getAttribute("es"));
+   			    			%>
+   			    	</option>
+   			    	
+   			    	
+    				<option><% if(session.getAttribute("it")==null) 
+   			    				{
+   			    					out.println("Italian");
+   			    				}
+   			    				else
+ 			 			            out.println(session.getAttribute("it"));
+   			    			%>
+   			    	</option>
+   			    	
+					<option><% if(session.getAttribute("fr")==null) 
+   			    				{
+   			    					out.println("French");
+   			    				}
+   			    				else
+ 			 			            out.println(session.getAttribute("fr"));
+   			    			%>
+   			    	</option>
+   			    	
+					<option><% if(session.getAttribute("en")==null) 
+   			    				{
+   			    					out.println("English");
+   			    				}
+   			    				else
+ 			 			            out.println(session.getAttribute("en"));
+   			    			%>
+   			    	</option>
+   			    	
 
 				</select>
+				
 
 				<script type="text/javascript">
 			
