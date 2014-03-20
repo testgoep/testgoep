@@ -58,7 +58,7 @@ public class Receiver extends HttpServlet
 			 
 			
 			 
-			 FileInputStream fis = (FileInputStream) this.getClass().getResourceAsStream("/user.properties");
+			 FileInputStream fis = (FileInputStream) this.getClass().getResourceAsStream("/properties/user.properties");
 			 
 			 Properties properties = new Properties();
 			 

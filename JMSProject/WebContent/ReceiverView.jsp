@@ -98,19 +98,19 @@
 												 if(request.getParameter("msg")!=null && (request.getParameter("msg").equals("QueueIsEmpty")))
 											  		{	
 			
-			 											out.println("<IMG widht=\"304\" height=\"67\" src=\"QueueEmpty.png\" alt=\"alt\">");
+			 											out.println("<IMG widht=\"304\" height=\"67\" src=\"resources/QueueEmpty.png\" alt=\"alt\">");
 		
 		 									 	    }
 										   
 											 	 else if(request.getParameter("msg")!=null && (request.getParameter("msg").equals("QueueNotFound")))
 											  		{
-													out.println("<br><IMG widht=\"286\" height=\"59\" src=\"QueueNotFound.png\" alt=\"alt\">"); 
-													out.println("<br><IMG widht=\"407\" height=\"55\" src=\"InsertValidQueueName.png\" alt=\"alt\">");
+													out.println("<IMG widht=\"286\" height=\"59\" src=\"resources/QueueNotFound.png\" alt=\"alt\">"); 
+													out.println("<br><IMG widht=\"407\" height=\"55\" src=\"resources/InsertValidQueueName.png\" alt=\"alt\">");
 											 	    }
 	    
 											 	 else if(request.getParameter("msg")!=null)
 											 	    {
-	        										out.print("<IMG widht=\"32\" height=\"35\" src=\"MessageSentOk.png\" alt=\"alt\">  <FONT style=\"BACKGROUND-COLOR: white\" color=\"black\"> " + request.getParameter("msg") + "</FONT>  <IMG widht=\"32\" height=\"35\" src=\"C:/Users/fulvio.cicerano/eclipseWorkspace/MessageSentOk.png\" alt=\"alt\"></center>");
+	        										out.print("<IMG widht=\"32\" height=\"35\" src=\"resources/MessageSentOk.png\" alt=\"alt\">  <FONT style=\"BACKGROUND-COLOR: white\" color=\"black\"> " + request.getParameter("msg") + "</FONT>  <IMG widht=\"32\" height=\"35\" src=\"resources/MessageSentOk.png\" alt=\"alt\"></center>");
 											  		}
 		 
 											   %>

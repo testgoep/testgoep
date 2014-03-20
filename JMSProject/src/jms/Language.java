@@ -64,7 +64,7 @@ public class Language extends HttpServlet
 		        
 		        currentLocale = new Locale(languageC, country);
 		        
-		        messages = ResourceBundle.getBundle("MessagesBundle", currentLocale);
+		        messages = ResourceBundle.getBundle("messageBoundle/MessagesBundle", currentLocale);
 		        
 		        
 		        String benvenuto= messages.getString("benvenuto");

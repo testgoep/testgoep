@@ -12,8 +12,9 @@
 
     </head>
     
-  <body bgcolor = "green">
+  <body bgcolor = "green">  
 
+<br>
 			<form action="Language" id = "languageForm">
 
 				<select name = "language" onchange="traduci()">
@@ -120,7 +121,7 @@
 			</form>
 			
 	</Center>
-	
+		
  </body>
  
 </html>

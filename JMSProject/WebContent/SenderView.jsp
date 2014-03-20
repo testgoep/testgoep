@@ -134,13 +134,13 @@
 	   								   <%
 											if(request.getParameter("msg")!=null && request.getParameter("msg").equals("MessageSent"))
 				
-												out.println("<IMG widht=\"284\" height=\"52\" src=\"MessageSent.png\" alt=\"alt\">"); 
+												out.println("<IMG widht=\"284\" height=\"52\" src=\"resources/MessageSent.png\" alt=\"alt\">"); 
 			
 											else if(request.getParameter("msg")!=null && request.getParameter("msg").equals("QueueNotFound"))
 											 {
-												out.println("<br><IMG widht=\"286\" height=\"59\" src=\"QueueNotFound.png\" alt=\"alt\">"); 
+												out.println("<br><IMG widht=\"286\" height=\"59\" src=\"resources/QueueNotFound.png\" alt=\"alt\">"); 
 				
-												out.println("<br><IMG widht=\"407\" height=\"55\" src=\"InsertValidQueueName.png\" alt=\"alt\">");
+												out.println("<br><IMG widht=\"407\" height=\"55\" src=\"resources/InsertValidQueueName.png\" alt=\"alt\">");
 											 }
 									   %>
 	 	</font>

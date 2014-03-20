@@ -48,7 +48,7 @@ public class Sender extends HttpServlet
 	
 			final Properties p = new Properties();
 			
-			InputStream fis = this.getClass().getResourceAsStream("/user.properties");
+			InputStream fis = this.getClass().getResourceAsStream("/properties/user.properties");
 			
 			Properties properties = new Properties();
 			
