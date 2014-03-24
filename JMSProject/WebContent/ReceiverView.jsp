@@ -110,7 +110,7 @@
 	    
 											 	 else if(request.getParameter("msg")!=null)
 											 	    {
-	        										out.print("<IMG widht=\"32\" height=\"35\" src=\"resources/MessageSentOk.png\" alt=\"alt\">  <FONT style=\"BACKGROUND-COLOR: white\" color=\"black\"> " + request.getParameter("msg") + "</FONT>  <IMG widht=\"32\" height=\"35\" src=\"resources/MessageSentOk.png\" alt=\"alt\"></center>");
+	        										out.print("<IMG widht=\"32\" height=\"35\" src=\"resources/MessageSentOk.png\" alt=\"alt\">  <FONT style=\"BACKGROUND-COLOR: white\" color=\"black\">-" + request.getParameter("msg") + "-</FONT>  <IMG widht=\"32\" height=\"35\" src=\"resources/MessageSentOk.png\" alt=\"alt\"></center>");
 											  		}
 		 
 											   %>
