@@ -1,5 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 master
 =======
 prova merge new branch
 >>>>>>> new_branch
+=======
+aggiunta personaggi
+>>>>>>> refs/heads/new_branch
